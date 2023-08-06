@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/ivanov-slk/tma-service-tester/compare/v0.1.1...v0.1.2) (2023-08-06)
+
+
+### Bug Fixes
+
+* Converted the build artifact to executable. ([5a4ec1c](https://github.com/ivanov-slk/tma-service-tester/commit/5a4ec1cc4670ba6606e5ce666d492b44b17051b0))
+
 ## [0.1.1](https://github.com/ivanov-slk/tma-service-tester/compare/v0.1.0...v0.1.1) (2023-07-31)
 
 
