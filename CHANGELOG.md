@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/ivanov-slk/tma-service-tester/compare/v0.1.0...v0.1.1) (2023-07-31)
+
+
+### Bug Fixes
+
+* Add empty go.sum so that the Dockerfile runs. ([79d40a6](https://github.com/ivanov-slk/tma-service-tester/commit/79d40a6bfa61c3a11b547f59ee0ff4ada3c967bd))
+
 ## 0.1.0 (2023-07-31)
 
 
