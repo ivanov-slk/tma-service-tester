@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/ivanov-slk/tma-service-tester/compare/v0.1.2...v0.1.3) (2023-08-07)
+
+
+### Bug Fixes
+
+* Specified the correct path to execute in the image. ([75092d7](https://github.com/ivanov-slk/tma-service-tester/commit/75092d7b3e571a12655400306ee285988acd9040))
+
 ## [0.1.2](https://github.com/ivanov-slk/tma-service-tester/compare/v0.1.1...v0.1.2) (2023-08-06)
 
 
