@@ -12,7 +12,6 @@ COPY . .
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /run
-RUN chmod +x /run
 
 # Run
-CMD ["/run"]
+CMD ["/run/tma-service-tester"]
