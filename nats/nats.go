@@ -10,16 +10,17 @@ import (
 	"github.com/testcontainers/testcontainers-go/wait"
 )
 
-// natsContainer represents the nats container type used in the module
+// NatsContainer represents the nats container type used in the module
 type NatsContainer struct {
 	testcontainers.Container
 	URI string
 }
 
-// runContainer creates an instance of the nats container type
-func runContainer(ctx context.Context, opts ...testcontainers.ContainerCustomizer) (*natsContainer, error) {
+// RunContainer creates an instance of the nats container type
+func RunContainer(ctx context.Context, opts ...testcontainers.ContainerCustomizer) (*NatsContainer, error) {
 	req := testcontainers.ContainerRequest{
-		Image:        "nats:2.9",
+		Image:        "nats:latest",
+		Hostname:     "127.0.0.1",
 		ExposedPorts: []string{"4222/tcp", "6222/tcp", "8222/tcp"},
 		Cmd:          []string{"-DV", "-js"},
 		WaitingFor:   wait.ForLog("Listening for client connections on 0.0.0.0:4222"),
@@ -51,5 +52,5 @@ func runContainer(ctx context.Context, opts ...testcontainers.ContainerCustomize
 
 	uri := fmt.Sprintf("nats://%s:%s", hostIP, mappedPort.Port())
 
-	return &natsContainer{Container: container, URI: uri}, nil
+	return &NatsContainer{Container: container, URI: uri}, nil
 }
