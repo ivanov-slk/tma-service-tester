@@ -5,6 +5,7 @@ package nats
 import (
 	"context"
 	"fmt"
+	"log"
 
 	"github.com/testcontainers/testcontainers-go"
 	"github.com/testcontainers/testcontainers-go/wait"
@@ -17,7 +18,7 @@ type NatsContainer struct {
 }
 
 // RunContainer creates an instance of the nats container type
-func RunContainer(ctx context.Context, opts ...testcontainers.ContainerCustomizer) (*NatsContainer, error) {
+func RunContainer(ctx context.Context, opts ...testcontainers.ContainerCustomizer) (*NatsContainer, func(), error) {
 	req := testcontainers.ContainerRequest{
 		Image:        "nats:latest",
 		Hostname:     "127.0.0.1",
@@ -37,20 +38,28 @@ func RunContainer(ctx context.Context, opts ...testcontainers.ContainerCustomize
 
 	container, err := testcontainers.GenericContainer(ctx, genericContainerReq)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	mappedPort, err := container.MappedPort(ctx, "4222/tcp")
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	hostIP, err := container.Host(ctx)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	uri := fmt.Sprintf("nats://%s:%s", hostIP, mappedPort.Port())
 
-	return &NatsContainer{Container: container, URI: uri}, nil
+	natsContainer := &NatsContainer{Container: container, URI: uri}
+
+	cleanupFunc := func() {
+		if err := natsContainer.Terminate(ctx); err != nil {
+			log.Fatalf("failed to terminate container: %s", err)
+		}
+	}
+
+	return natsContainer, cleanupFunc, nil
 }
